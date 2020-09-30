@@ -5,14 +5,17 @@ class Note {
   String _body = "";
 
   String get body => _body;
+
   set body(String newValue) {
     _body = newValue;
     _modificationDate = DateTime.now();
   }
 
   DateTime _creationDate;
+
   DateTime get creationDate => _creationDate;
   DateTime _modificationDate;
+
   DateTime get modificationDate => _modificationDate;
 
   // Constructores
@@ -50,10 +53,6 @@ class Note {
         _creationDate.hour,
         _creationDate.minute,
         _creationDate.second);
-    return proxy.hashCode;
+    return proxy.hashCode + _body.hashCode;
   }
-
-  /* Encasquetar ChangeNotifier y llamar a notifyListeners() cuando algo cambia
-  */
-
 }
