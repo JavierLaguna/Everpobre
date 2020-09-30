@@ -43,4 +43,26 @@ class Notebook with ChangeNotifier {
   String toString() {
     return "<$runtimeType: $length notes>";
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    } else if (other is Notebook && length == other.length) {
+      for (var i = 0; i < length; i++) {
+        if (_notes[i] != other[i]) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    return false;
+  }
+
+  @override
+  int get hashCode => _notes
+      .map((element) => element.hashCode)
+      .reduce((value, element) => value + element);
 }

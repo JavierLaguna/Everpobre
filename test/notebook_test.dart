@@ -36,4 +36,84 @@ void main() {
       expect(nb2.length, 0);
     });
   });
+
+  group("Object Protocol", () {
+    test("Equality", () {
+      final note1 = Note("Mi nota 1");
+      final note2 = Note("Mi nota 2");
+
+      final notebook1 = Notebook();
+      notebook1.add(note1);
+      notebook1.add(note2);
+
+      final notebook2 = Notebook();
+      notebook2.add(note1);
+      notebook2.add(note2);
+
+      expect(notebook1, notebook2);
+    });
+
+    test("Not Equality - different length", () {
+      final note1 = Note("Mi nota 1");
+      final note2 = Note("Mi nota 2");
+
+      final notebook1 = Notebook();
+      notebook1.add(note1);
+      notebook1.add(note2);
+
+      final notebook2 = Notebook();
+      notebook2.add(note1);
+
+      expect(notebook1 == notebook2, isFalse);
+    });
+
+    test("Not Equality - same length, different notes", () {
+      final note1 = Note("Mi nota 1");
+      final note2 = Note("Mi nota 2");
+      final note3 = Note("Mi nota 3");
+
+      final notebook1 = Notebook();
+      notebook1.add(note1);
+      notebook1.add(note2);
+      notebook1.add(note2);
+
+      final notebook2 = Notebook();
+      notebook2.add(note1);
+      notebook2.add(note3);
+      notebook2.add(note2);
+
+      expect(notebook1 == notebook2, isFalse);
+    });
+
+    test("HashCode - equal", () {
+      final note1 = Note("Mi nota 1");
+      final note2 = Note("Mi nota 2");
+
+      final notebook1 = Notebook();
+      notebook1.add(note1);
+      notebook1.add(note2);
+
+      final notebook2 = Notebook();
+      notebook2.add(note1);
+      notebook2.add(note2);
+
+      expect(notebook1.hashCode, notebook2.hashCode);
+    });
+
+    test("HashCode - not equal", () {
+      final note1 = Note("Mi nota 1");
+      final note2 = Note("Mi nota 2");
+      final note3 = Note("Mi nota 3");
+
+      final notebook1 = Notebook();
+      notebook1.add(note1);
+      notebook1.add(note2);
+
+      final notebook2 = Notebook();
+      notebook2.add(note1);
+      notebook2.add(note3);
+
+      expect(notebook1.hashCode == notebook2.hashCode, isFalse);
+    });
+  });
 }
