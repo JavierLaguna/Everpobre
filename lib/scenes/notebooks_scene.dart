@@ -40,7 +40,11 @@ class _NotebooksListViewState extends State<NotebooksListView> {
       body: ListView.builder(
         itemCount: widget._model.length,
         itemBuilder: (context, index) {
-          return NotebookSliver(widget._model[index]);
+          return NotebookSliver(
+              notebook: widget._model[index],
+              onDeleteNotebook: (notebook) {
+                widget._model.remove(notebook);
+              });
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -56,15 +60,28 @@ class _NotebooksListViewState extends State<NotebooksListView> {
 class NotebookSliver extends StatelessWidget {
   final Notebook _notebook;
 
-  const NotebookSliver(Notebook notebook) : _notebook = notebook;
+  final Function(Notebook) _onDeleteNotebook;
+
+  const NotebookSliver({Notebook notebook, Function(Notebook) onDeleteNotebook})
+      : _notebook = notebook,
+        _onDeleteNotebook = onDeleteNotebook;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: const Icon(Icons.book),
-        title: Text(_notebook.name),
-        subtitle: Text("${_notebook.length.toString()} notes"),
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (direction) {
+        _onDeleteNotebook(_notebook);
+      },
+      background: Container(
+        color: Colors.red,
+      ),
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.book),
+          title: Text(_notebook.name),
+          subtitle: Text("${_notebook.length.toString()} notes"),
+        ),
       ),
     );
   }
