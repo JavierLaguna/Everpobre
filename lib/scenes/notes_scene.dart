@@ -44,8 +44,8 @@ class NoteSliver extends StatefulWidget {
   final int index;
 
   const NoteSliver(Notebook notebook, int index)
-      : this.notebook = notebook,
-        this.index = index;
+      : notebook = notebook,
+        index = index;
 
   @override
   _NoteSliverState createState() => _NoteSliverState();

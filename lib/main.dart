@@ -2,7 +2,6 @@ import 'package:everpobre/scenes/notebooks_scene.dart';
 import 'package:everpobre/domain/notebooks.dart';
 import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
-import 'package:everpobre/domain/note.dart';
 
 final Notebooks model = Notebooks.testDataBuilder();
 
@@ -19,19 +18,10 @@ class TreeBuilder extends StatelessWidget {
         accentColor: const Color(0xFFFFC107),
       ),
       title: TextResources.appName,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(TextResources.appName),
-        ),
-        body: NotebooksListView(model),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // model.add(Note("Una nueva nota"));
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
+      routes: {
+        NotebooksListView.routeName: (context) => NotebooksListView(model),
+      },
+      initialRoute: NotebooksListView.routeName,
     );
   }
 }
-
