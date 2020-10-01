@@ -15,6 +15,22 @@ class NotebooksListView extends StatefulWidget {
 }
 
 class _NotebooksListViewState extends State<NotebooksListView> {
+  void modelDidChange() {
+    setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    widget._model.addListener(modelDidChange);
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    widget._model.removeListener(modelDidChange);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +45,7 @@ class _NotebooksListViewState extends State<NotebooksListView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // model.add(Note("Una nueva nota"));
+          widget._model.add(Notebook());
         },
         child: const Icon(Icons.add),
       ),
@@ -47,8 +63,8 @@ class NotebookSliver extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: const Icon(Icons.book),
-        title: Text("${_notebook.length.toString()} notes"),
-        subtitle: const Text("Subtitle"),
+        title: const Text("title"),
+        subtitle: Text("${_notebook.length.toString()} notes"),
       ),
     );
   }

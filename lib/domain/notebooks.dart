@@ -1,6 +1,7 @@
 import 'package:everpobre/domain/notebook.dart';
+import 'package:flutter/material.dart';
 
-class Notebooks {
+class Notebooks with ChangeNotifier {
   // Singleton
   static final shared = Notebooks();
 
@@ -23,10 +24,12 @@ class Notebooks {
   // Mutators
   void add(Notebook notebook) {
     _notebooks.insert(0, notebook);
+    notifyListeners();
   }
 
   bool remove(Notebook notebook) {
     final removed = _notebooks.remove(notebook);
+    notifyListeners();
     return removed;
   }
 
