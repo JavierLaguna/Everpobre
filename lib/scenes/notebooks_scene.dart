@@ -63,7 +63,7 @@ class NotebookSliver extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: const Icon(Icons.book),
-        title: const Text("title"),
+        title: Text(_notebook.name),
         subtitle: Text("${_notebook.length.toString()} notes"),
       ),
     );
