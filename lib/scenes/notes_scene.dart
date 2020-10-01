@@ -73,7 +73,7 @@ class _NoteSliverState extends State<NoteSliver> {
       ),
       child: Card(
         child: ListTile(
-          leading: const Icon(Icons.toc),
+          leading: const Icon(Icons.note),
           title: Text(widget.notebook[widget.index].body),
           subtitle:
               Text(fmt.format(widget.notebook[widget.index].modificationDate)),
