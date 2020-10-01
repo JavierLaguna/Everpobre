@@ -45,7 +45,7 @@ class _NotebooksListViewState extends State<NotebooksListView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          widget._model.add(Notebook());
+          widget._model.add(Notebook("New Notebook"));
         },
         child: const Icon(Icons.add),
       ),

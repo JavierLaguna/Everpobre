@@ -2,25 +2,33 @@ import 'package:everpobre/domain/note.dart';
 import 'package:flutter/material.dart';
 
 class Notebook with ChangeNotifier {
-  static final shared = Notebook();
+  static final shared = Notebook("Singleton Notebook");
 
+  final String _name;
   final List<Note> _notes = [];
+
+  String get name => _name;
 
   int get length => _notes.length;
 
-  // Constructores
-  Notebook();
+  // Constructors
+  Notebook(String name) : _name = name;
 
-  Notebook.testDataBuilder() {
+  Notebook.testDataBuilder(String name) : _name = name {
     _notes.addAll(List.generate(100, (index) => Note("Item $index")));
   }
 
-  // Accesores
+  // Accessors
   Note operator [](int index) {
     return _notes[index];
   }
 
-  // Mutadores
+  // Mutators
+  void add(Note note) {
+    _notes.insert(0, note);
+    notifyListeners();
+  }
+
   bool remove(Note note) {
     final n = _notes.remove(note);
     notifyListeners();
@@ -33,22 +41,19 @@ class Notebook with ChangeNotifier {
     return n;
   }
 
-  void add(Note note) {
-    _notes.insert(0, note);
-    notifyListeners();
-  }
-
   // Object Protocol
   @override
   String toString() {
-    return "<$runtimeType: $length notes>";
+    return "<$runtimeType: $_name with $length notes>";
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
-    } else if (other is Notebook && length == other.length) {
+    } else if (other is Notebook &&
+        _name == other.name &&
+        length == other.length) {
       for (var i = 0; i < length; i++) {
         if (_notes[i] != other[i]) {
           return false;
@@ -63,12 +68,16 @@ class Notebook with ChangeNotifier {
 
   @override
   int get hashCode {
+    final nameHash = _name.hashCode;
+
     if (_notes.isEmpty) {
-      return 0;
+      return nameHash;
     } else {
-      return _notes
+      final notesHash = _notes
           .map((element) => element.hashCode)
           .reduce((value, element) => value + element);
+
+      return nameHash + notesHash;
     }
   }
 }

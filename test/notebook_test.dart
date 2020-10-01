@@ -22,8 +22,8 @@ void main() {
 
   group("contents", () {
     test("length behaves correctly", () {
-      final nb = Notebook();
-      final nb2 = Notebook();
+      final nb = Notebook("nb");
+      final nb2 = Notebook("nb 2");
       final n = Note("Lorem Ipsum");
 
       expect(nb.length, 0);
@@ -42,11 +42,11 @@ void main() {
       final note1 = Note("Mi nota 1");
       final note2 = Note("Mi nota 2");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
       notebook1.add(note2);
 
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
       notebook2.add(note1);
       notebook2.add(note2);
 
@@ -57,11 +57,11 @@ void main() {
       final note1 = Note("Mi nota 1");
       final note2 = Note("Mi nota 2");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
       notebook1.add(note2);
 
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
       notebook2.add(note1);
 
       expect(notebook1 == notebook2, isFalse);
@@ -72,12 +72,12 @@ void main() {
       final note2 = Note("Mi nota 2");
       final note3 = Note("Mi nota 3");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
       notebook1.add(note2);
       notebook1.add(note2);
 
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
       notebook2.add(note1);
       notebook2.add(note3);
       notebook2.add(note2);
@@ -89,11 +89,11 @@ void main() {
       final note1 = Note("Mi nota 1");
       final note2 = Note("Mi nota 2");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
       notebook1.add(note2);
 
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
       notebook2.add(note1);
       notebook2.add(note2);
 
@@ -105,11 +105,11 @@ void main() {
       final note2 = Note("Mi nota 2");
       final note3 = Note("Mi nota 3");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
       notebook1.add(note2);
 
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
       notebook2.add(note1);
       notebook2.add(note3);
 

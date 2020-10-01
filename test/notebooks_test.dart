@@ -12,7 +12,7 @@ void main() {
 
   group("Add", () {
     test("Add Notebook", () {
-      final Notebook n = Notebook();
+      final Notebook n = Notebook("notebook");
 
       expect(() => Notebooks.shared.add(n), returnsNormally);
     });
@@ -20,7 +20,7 @@ void main() {
 
   group("Remove", () {
     test("Remove Notebook", () {
-      final Notebook n = Notebook();
+      final Notebook n = Notebook("notebook");
       Notebooks.shared.add(n);
 
       expect(Notebooks.shared.remove(n), isTrue);
@@ -29,15 +29,16 @@ void main() {
 
   group("Contents", () {
     test("Length behaves correctly", () {
-      final Notebook n = Notebook();
+      final Notebook n = Notebook("notebook");
+      final Notebooks notebooks = Notebooks();
 
-      expect(Notebooks.shared.length, 0);
+      expect(notebooks.length, 0);
 
-      Notebooks.shared.add(n);
-      expect(Notebooks.shared.length, 1);
+      notebooks.add(n);
+      expect(notebooks.length, 1);
 
-      Notebooks.shared.remove(n);
-      expect(Notebooks.shared.length, 0);
+      notebooks.remove(n);
+      expect(notebooks.length, 0);
     });
   });
 
@@ -46,7 +47,7 @@ void main() {
       final note1 = Note("Mi nota 1");
       final note2 = Note("Mi nota 2");
 
-      final notebook = Notebook();
+      final notebook = Notebook("notebook");
       notebook.add(note1);
       notebook.add(note2);
 
@@ -59,8 +60,8 @@ void main() {
     });
 
     test("Not Equality - different length", () {
-      final notebook1 = Notebook();
-      final notebook2 = Notebook();
+      final notebook1 = Notebook("notebook");
+      final notebook2 = Notebook("notebook");
 
       final notebooks1 = Notebooks();
       notebooks1.add(notebook1);
@@ -72,10 +73,10 @@ void main() {
     });
 
     test("Not Equality - same length, different notebook", () {
-      final notebook1 = Notebook();
-      final notebook2 = Notebook();
+      final notebook1 = Notebook("notebook");
+      final notebook2 = Notebook("notebook");
       final note1 = Note("Note 1");
-      final notebook3 = Notebook();
+      final notebook3 = Notebook("notebook");
       notebook3.add(note1);
 
       final notebooks1 = Notebooks();
@@ -91,9 +92,9 @@ void main() {
     test("HashCode - equal", () {
       final note1 = Note("NOTE 1");
 
-      final notebook1 = Notebook();
+      final notebook1 = Notebook("notebook");
       notebook1.add(note1);
-      final notebook2 = Notebook();
+      final notebook2 = Notebook("notebook");
 
       final notebooks1 = Notebooks();
       notebooks1.add(notebook1);
@@ -106,10 +107,10 @@ void main() {
     });
 
     test("HashCode - not equal", () {
-      final notebook1 = Notebook();
-      final notebook2 = Notebook();
+      final notebook1 = Notebook("notebook");
+      final notebook2 = Notebook("notebook");
       final note1 = Note("Note 1");
-      final notebook3 = Notebook();
+      final notebook3 = Notebook("notebook");
       notebook3.add(note1);
 
       final notebooks1 = Notebooks();
