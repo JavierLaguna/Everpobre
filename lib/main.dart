@@ -1,11 +1,15 @@
 import 'package:everpobre/Scenes/notes_scene.dart';
 import 'package:everpobre/domain/notebook.dart';
+import 'package:everpobre/domain/notebooks.dart';
 import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:everpobre/domain/note.dart';
 
 final Notebook model = Notebook.testDataBuilder();
+final Notebooks modelNotebooks = Notebooks.testDataBuilder();
+
 void main() {
+  print(modelNotebooks);
   runApp(TreeBuilder());
 }
 

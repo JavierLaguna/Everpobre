@@ -8,6 +8,13 @@ class Notebooks {
 
   int get length => _notebooks.length;
 
+  // Constructors
+  Notebooks();
+
+  Notebooks.testDataBuilder() {
+    _notebooks.addAll(List.generate(20, (index) => Notebook.testDataBuilder()));
+  }
+
   // Accessors
   Notebook operator [](int index) {
     return _notebooks[index];
