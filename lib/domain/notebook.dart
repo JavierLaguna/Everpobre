@@ -62,7 +62,13 @@ class Notebook with ChangeNotifier {
   }
 
   @override
-  int get hashCode => _notes
-      .map((element) => element.hashCode)
-      .reduce((value, element) => value + element);
+  int get hashCode {
+    if (_notes.isEmpty) {
+      return 0;
+    } else {
+      return _notes
+          .map((element) => element.hashCode)
+          .reduce((value, element) => value + element);
+    }
+  }
 }
