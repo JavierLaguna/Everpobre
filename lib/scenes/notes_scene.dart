@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NotesListView extends StatefulWidget {
+  static const routeName = "/notesList";
+
   final Notebook _model;
 
-  const NotesListView(Notebook model) : _model = model;
+  NotesListView(BuildContext context)
+      : _model = ModalRoute.of(context).settings.arguments as Notebook;
 
   @override
   _NotesListViewState createState() => _NotesListViewState();
@@ -30,11 +33,22 @@ class _NotesListViewState extends State<NotesListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget._model.length,
-      itemBuilder: (context, index) {
-        return NoteSliver(widget._model, index);
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget._model.name),
+      ),
+      body: ListView.builder(
+        itemCount: widget._model.length,
+        itemBuilder: (context, index) {
+          return NoteSliver(widget._model, index);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // widget._model.add(Notebook("New Notebook"));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
@@ -66,6 +80,7 @@ class _NoteSliverState extends State<NoteSliver> {
             content: Text("Note has been deleted!"),
           ),
         );
+
         setState(() {});
       },
       background: Container(

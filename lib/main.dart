@@ -1,5 +1,6 @@
 import 'package:everpobre/scenes/notebooks_scene.dart';
 import 'package:everpobre/domain/notebooks.dart';
+import 'package:everpobre/scenes/notes_scene.dart';
 import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class TreeBuilder extends StatelessWidget {
       title: TextResources.appName,
       routes: {
         NotebooksListView.routeName: (context) => NotebooksListView(model),
+        NotesListView.routeName: (context) => NotesListView(context),
       },
       initialRoute: NotebooksListView.routeName,
     );

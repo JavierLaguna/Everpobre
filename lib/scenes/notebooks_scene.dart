@@ -1,5 +1,6 @@
 import 'package:everpobre/domain/notebooks.dart';
 import 'package:everpobre/domain/notebook.dart';
+import 'package:everpobre/scenes/notes_scene.dart';
 import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
 
@@ -72,6 +73,12 @@ class NotebookSliver extends StatelessWidget {
       key: UniqueKey(),
       onDismissed: (direction) {
         _onDeleteNotebook(_notebook);
+
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("The notebook '${_notebook.name}' has been deleted!"),
+          ),
+        );
       },
       background: Container(
         color: Colors.red,
@@ -81,6 +88,10 @@ class NotebookSliver extends StatelessWidget {
           leading: const Icon(Icons.book),
           title: Text(_notebook.name),
           subtitle: Text("${_notebook.length.toString()} notes"),
+          onTap: () {
+            Navigator.pushNamed(context, NotesListView.routeName,
+                arguments: _notebook);
+          },
         ),
       ),
     );
