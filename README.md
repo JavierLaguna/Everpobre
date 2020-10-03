@@ -1,46 +1,39 @@
-# everpobre
+# Everpobre
 
-## Error en la versión anterior
+> Everpobre is a practice of 'Flutter' for KeepCoding Mobile 10
 
-Todo el problema se debía que en la clase `_NoteSliverState` le estaba pasando una clave
-(`Key`) que no era única, al contrario de lo que pensaba.
+![Notebooks List](/screenshots/notebooks_list.png)
+![Notes List](/screenshots/notes_list.png)
+![Edit Note](/screenshots/edit_note.png)
 
-Cuando se reciclan Widgets, como es el caso de una tabla, la clave que identifica al Widget ha
-de ser única, para evitar que el Widget sea reutilizado donde no se debe. Algo parecido a lo que ocurre
-en iOS también con el `cellId`.
+## Description
 
-En nuestro caso concreto que ocurría era lo siguiente:
+Little mobile app for take notes and save on notebooks.
 
-1. Se eliminaba una nota del modelo, dentro de `onDismissed`, lo cual también elimina la vista (`NoteSliver` así como su estado.)
-1. El modelo avisaba al Widget de Notas (`NotesListView`), que procede a llamar a su función `build`, lo cual reconstruye los `NoteSliver`s, reciclando en la medida de lo posible.
-1. Al reciclar, Flutter se encontraba con una `NoteSliver` que tiene **la misma `Key` que la qu efue eliminada** (por que la `Key` proporcionada no era única). Daba por hehco que ésta era la que tendría que haber sido eliminada, y se arma la de Dios.
+## Application Structure
 
-Al modificar el código de `build` de `_NoteSliverState` usando un `UniqueKey`, se resuelve el problema:
+[Flutter](https://flutter.dev/) mobile app using [Dart](https://dart.dev/) language.
 
-```
-@override
-  Widget build(BuildContext context) {
-    DateFormat fmt = DateFormat("yyyy-mm-dd");
+App Features:
 
-    return Dismissible(
-      key: UniqueKey(),
-```
+###### Notebooks
 
-## PRACTICA
+- List all notebooks.
+- Create new notebooks.
+- Delete existing notebooks.
 
-Consta de dos partes, la primera obligatoria, y la segunda opcional (para aquellos que quieran seguir con Flutter).
+###### Notes
 
-### OBLIGATORIO
+- List all notes of a notebook.
+- Create new notes.
+- Delete notes.
+- Edit note content.
 
-1. Repasa el código actual de Everpobre y asegúrate de entender lo que hace.
-1. Crea una clase `Notebooks` en el dominio. Representa una lista de `Notebook`. 
-1. Añádele un construictor que carga datos de pruebas: varios `Notebooks` que contienen a varias `Notes`.
-1. Crea un Widget de tipo `ListView`  para mostrarlos.
-1. Se debe de poder crear nuevos `Notebooks` mediante un `FloatingActionButton` y eliminarlos mediante un `Dismissable`.
-1. Crea dos rutas que permiten navegar desde el Grid de Notebooks a la lista de Notes que contiene dicho `Notebook`. 
+###### UnitTest
 
+- Domain objects
+- Date helper functions
 
-### OPCIONAL
+##### Author
 
-1. Crea un Widget de detalle de Note que permita editar su contenido.
-1. Mira la documentación de `EditableText` para ver como implementar texto editable (es muy similar a iOS).
+> Javier Laguna
