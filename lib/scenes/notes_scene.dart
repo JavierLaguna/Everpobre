@@ -1,4 +1,5 @@
 import 'package:everpobre/domain/notebook.dart';
+import 'package:everpobre/domain/note.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -45,7 +46,7 @@ class _NotesListViewState extends State<NotesListView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // widget._model.add(Notebook("New Notebook"));
+          widget._model.add(Note("New note"));
         },
         child: const Icon(Icons.add),
       ),
@@ -76,12 +77,13 @@ class _NoteSliverState extends State<NoteSliver> {
         widget.notebook.removeAt(widget.index);
 
         Scaffold.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Note has been deleted!"),
+          SnackBar(
+            content: Text(
+                "Note '${widget.notebook[widget.index].body}' has been deleted!"),
           ),
         );
 
-        setState(() {});
+        // setState(() {});
       },
       background: Container(
         color: Colors.red,
