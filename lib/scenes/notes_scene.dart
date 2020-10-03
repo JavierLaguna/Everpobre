@@ -1,5 +1,6 @@
 import 'package:everpobre/domain/notebook.dart';
 import 'package:everpobre/domain/note.dart';
+import 'package:everpobre/scenes/note_detail_scene.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,10 +10,7 @@ class NotesListView extends StatefulWidget {
   final Notebook _model;
 
   NotesListView(BuildContext context)
-      : _model = ModalRoute
-      .of(context)
-      .settings
-      .arguments as Notebook;
+      : _model = ModalRoute.of(context).settings.arguments as Notebook;
 
   @override
   _NotesListViewState createState() => _NotesListViewState();
@@ -35,6 +33,13 @@ class _NotesListViewState extends State<NotesListView> {
     setState(() {});
   }
 
+  void onTapNote(Note note) async {
+    await Navigator.pushNamed(context, NoteDetailView.routeName,
+        arguments: note);
+
+    modelDidChange();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +51,7 @@ class _NotesListViewState extends State<NotesListView> {
         itemBuilder: (context, index) {
           return NoteSliver(
             note: widget._model[index],
+            onTapNote: onTapNote,
             onDeleteNote: (note) {
               widget._model.remove(note);
             },
@@ -53,9 +59,7 @@ class _NotesListViewState extends State<NotesListView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme
-            .of(context)
-            .primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           widget._model.add(Note("New note"));
         },
@@ -67,10 +71,13 @@ class _NotesListViewState extends State<NotesListView> {
 
 class NoteSliver extends StatelessWidget {
   final Note _note;
+  final Function(Note) _onTapNote;
   final Function(Note) _onDeleteNote;
 
-  const NoteSliver({Note note, Function(Note) onDeleteNote})
+  const NoteSliver(
+      {Note note, Function(Note) onTapNote, Function(Note) onDeleteNote})
       : _note = note,
+        _onTapNote = onTapNote,
         _onDeleteNote = onDeleteNote;
 
   @override
@@ -96,6 +103,9 @@ class NoteSliver extends StatelessWidget {
           leading: const Icon(Icons.note),
           title: Text(_note.body),
           subtitle: Text(fmt.format(_note.modificationDate)),
+          onTap: () {
+            _onTapNote(_note);
+          },
         ),
       ),
     );

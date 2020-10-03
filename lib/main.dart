@@ -1,3 +1,4 @@
+import 'package:everpobre/scenes/note_detail_scene.dart';
 import 'package:everpobre/scenes/notebooks_scene.dart';
 import 'package:everpobre/domain/notebooks.dart';
 import 'package:everpobre/scenes/notes_scene.dart';
@@ -22,6 +23,7 @@ class TreeBuilder extends StatelessWidget {
       routes: {
         NotebooksListView.routeName: (context) => NotebooksListView(model),
         NotesListView.routeName: (context) => NotesListView(context),
+        NoteDetailView.routeName: (context) => NoteDetailView(context),
       },
       initialRoute: NotebooksListView.routeName,
     );

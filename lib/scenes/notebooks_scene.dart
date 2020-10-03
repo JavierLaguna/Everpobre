@@ -63,9 +63,7 @@ class _NotebooksListViewState extends State<NotebooksListView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme
-            .of(context)
-            .primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: addNewNotebook,
         child: const Icon(Icons.add),
       ),
@@ -78,9 +76,10 @@ class NotebookSliver extends StatelessWidget {
   final Function(Notebook) _onTapNotebook;
   final Function(Notebook) _onDeleteNotebook;
 
-  const NotebookSliver({Notebook notebook,
-    Function(Notebook) onTapNotebook,
-    Function(Notebook) onDeleteNotebook})
+  const NotebookSliver(
+      {Notebook notebook,
+      Function(Notebook) onTapNotebook,
+      Function(Notebook) onDeleteNotebook})
       : _notebook = notebook,
         _onTapNotebook = onTapNotebook,
         _onDeleteNotebook = onDeleteNotebook;
