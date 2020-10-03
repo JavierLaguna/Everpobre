@@ -60,7 +60,6 @@ class _NotebooksListViewState extends State<NotebooksListView> {
 
 class NotebookSliver extends StatelessWidget {
   final Notebook _notebook;
-
   final Function(Notebook) _onDeleteNotebook;
 
   const NotebookSliver({Notebook notebook, Function(Notebook) onDeleteNotebook})

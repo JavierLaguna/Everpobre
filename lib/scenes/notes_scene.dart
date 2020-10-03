@@ -41,7 +41,12 @@ class _NotesListViewState extends State<NotesListView> {
       body: ListView.builder(
         itemCount: widget._model.length,
         itemBuilder: (context, index) {
-          return NoteSliver(widget._model, index);
+          return NoteSliver(
+            note: widget._model[index],
+            onDeleteNote: (note) {
+              widget._model.remove(note);
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -54,19 +59,14 @@ class _NotesListViewState extends State<NotesListView> {
   }
 }
 
-class NoteSliver extends StatefulWidget {
-  final Notebook notebook;
-  final int index;
+class NoteSliver extends StatelessWidget {
+  final Note _note;
+  final Function(Note) _onDeleteNote;
 
-  const NoteSliver(Notebook notebook, int index)
-      : notebook = notebook,
-        index = index;
+  const NoteSliver({Note note, Function(Note) onDeleteNote})
+      : _note = note,
+        _onDeleteNote = onDeleteNote;
 
-  @override
-  _NoteSliverState createState() => _NoteSliverState();
-}
-
-class _NoteSliverState extends State<NoteSliver> {
   @override
   Widget build(BuildContext context) {
     DateFormat fmt = DateFormat("yyyy-mm-dd");
@@ -74,16 +74,13 @@ class _NoteSliverState extends State<NoteSliver> {
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (direction) {
-        widget.notebook.removeAt(widget.index);
+        _onDeleteNote(_note);
 
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-                "Note '${widget.notebook[widget.index].body}' has been deleted!"),
+            content: Text("Note '${_note.body}' has been deleted!"),
           ),
         );
-
-        // setState(() {});
       },
       background: Container(
         color: Colors.red,
@@ -91,9 +88,8 @@ class _NoteSliverState extends State<NoteSliver> {
       child: Card(
         child: ListTile(
           leading: const Icon(Icons.note),
-          title: Text(widget.notebook[widget.index].body),
-          subtitle:
-              Text(fmt.format(widget.notebook[widget.index].modificationDate)),
+          title: Text(_note.body),
+          subtitle: Text(fmt.format(_note.modificationDate)),
         ),
       ),
     );
