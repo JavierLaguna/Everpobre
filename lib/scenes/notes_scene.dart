@@ -9,7 +9,10 @@ class NotesListView extends StatefulWidget {
   final Notebook _model;
 
   NotesListView(BuildContext context)
-      : _model = ModalRoute.of(context).settings.arguments as Notebook;
+      : _model = ModalRoute
+      .of(context)
+      .settings
+      .arguments as Notebook;
 
   @override
   _NotesListViewState createState() => _NotesListViewState();
@@ -50,6 +53,9 @@ class _NotesListViewState extends State<NotesListView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
         onPressed: () {
           widget._model.add(Note("New note"));
         },
