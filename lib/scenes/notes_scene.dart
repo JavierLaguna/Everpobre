@@ -1,6 +1,7 @@
 import 'package:everpobre/domain/notebook.dart';
 import 'package:everpobre/domain/note.dart';
 import 'package:everpobre/scenes/note_detail_scene.dart';
+import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -91,7 +92,7 @@ class NoteSliver extends StatelessWidget {
 
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text("Note '${_note.body}' has been deleted!"),
+            content: Text(TextResources.deteleNoteMessage(_note.body)),
           ),
         );
       },

@@ -93,7 +93,7 @@ class NotebookSliver extends StatelessWidget {
 
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text("The notebook '${_notebook.name}' has been deleted!"),
+            content: Text(TextResources.deteleNotebookMessage(_notebook.name)),
           ),
         );
       },

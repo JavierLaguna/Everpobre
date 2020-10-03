@@ -1,4 +1,5 @@
 import 'package:everpobre/domain/note.dart';
+import 'package:everpobre/text_resources.dart';
 import 'package:flutter/material.dart';
 
 class NoteDetailView extends StatefulWidget {
@@ -7,7 +8,10 @@ class NoteDetailView extends StatefulWidget {
   final Note _note;
 
   NoteDetailView(BuildContext context)
-      : _note = ModalRoute.of(context).settings.arguments as Note;
+      : _note = ModalRoute
+      .of(context)
+      .settings
+      .arguments as Note;
 
   @override
   _NoteDetailViewState createState() => _NoteDetailViewState();
@@ -30,6 +34,7 @@ class _NoteDetailViewState extends State<NoteDetailView> {
 
   void saveChanges() {
     widget._note.body = _editingController.text;
+
     Navigator.pop(context);
   }
 
@@ -37,7 +42,7 @@ class _NoteDetailViewState extends State<NoteDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit Note"),
+        title: Text(TextResources.detailNoteTitle),
         actions: [
           Padding(
               padding: const EdgeInsets.only(right: 20.0),
@@ -51,9 +56,13 @@ class _NoteDetailViewState extends State<NoteDetailView> {
         padding: const EdgeInsets.all(8.0),
         child: EditableText(
           autofocus: true,
-          backgroundCursorColor: Theme.of(context).primaryColor,
+          backgroundCursorColor: Theme
+              .of(context)
+              .primaryColor,
           controller: _editingController,
-          cursorColor: Theme.of(context).accentColor,
+          cursorColor: Theme
+              .of(context)
+              .accentColor,
           focusNode: FocusNode(),
           maxLines: null,
           style: const TextStyle(color: Colors.black),
