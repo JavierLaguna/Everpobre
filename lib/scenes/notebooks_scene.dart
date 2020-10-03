@@ -16,10 +16,6 @@ class NotebooksListView extends StatefulWidget {
 }
 
 class _NotebooksListViewState extends State<NotebooksListView> {
-  void modelDidChange() {
-    setState(() {});
-  }
-
   @override
   void didChangeDependencies() {
     widget._model.addListener(modelDidChange);
@@ -30,6 +26,25 @@ class _NotebooksListViewState extends State<NotebooksListView> {
   void dispose() {
     widget._model.removeListener(modelDidChange);
     super.dispose();
+  }
+
+  void modelDidChange() {
+    setState(() {});
+  }
+
+  void addNewNotebook() {
+    widget._model.add(Notebook("New Notebook"));
+  }
+
+  void onTapNotebook(Notebook notebook) async {
+    await Navigator.pushNamed(context, NotesListView.routeName,
+        arguments: notebook);
+
+    modelDidChange();
+  }
+
+  void onDeleteNotebook(Notebook notebook) {
+    widget._model.remove(notebook);
   }
 
   @override
@@ -43,15 +58,12 @@ class _NotebooksListViewState extends State<NotebooksListView> {
         itemBuilder: (context, index) {
           return NotebookSliver(
               notebook: widget._model[index],
-              onDeleteNotebook: (notebook) {
-                widget._model.remove(notebook);
-              });
+              onTapNotebook: onTapNotebook,
+              onDeleteNotebook: onDeleteNotebook);
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          widget._model.add(Notebook("New Notebook"));
-        },
+        onPressed: addNewNotebook,
         child: const Icon(Icons.add),
       ),
     );
@@ -60,10 +72,15 @@ class _NotebooksListViewState extends State<NotebooksListView> {
 
 class NotebookSliver extends StatelessWidget {
   final Notebook _notebook;
+  final Function(Notebook) _onTapNotebook;
   final Function(Notebook) _onDeleteNotebook;
 
-  const NotebookSliver({Notebook notebook, Function(Notebook) onDeleteNotebook})
+  const NotebookSliver(
+      {Notebook notebook,
+      Function(Notebook) onTapNotebook,
+      Function(Notebook) onDeleteNotebook})
       : _notebook = notebook,
+        _onTapNotebook = onTapNotebook,
         _onDeleteNotebook = onDeleteNotebook;
 
   @override
@@ -88,8 +105,7 @@ class NotebookSliver extends StatelessWidget {
           title: Text(_notebook.name),
           subtitle: Text("${_notebook.length.toString()} notes"),
           onTap: () {
-            Navigator.pushNamed(context, NotesListView.routeName,
-                arguments: _notebook);
+            _onTapNotebook(_notebook);
           },
         ),
       ),

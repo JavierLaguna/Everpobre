@@ -16,10 +16,6 @@ class NotesListView extends StatefulWidget {
 }
 
 class _NotesListViewState extends State<NotesListView> {
-  void modelDidChange() {
-    setState(() {});
-  }
-
   @override
   void didChangeDependencies() {
     widget._model.addListener(modelDidChange);
@@ -30,6 +26,10 @@ class _NotesListViewState extends State<NotesListView> {
   void dispose() {
     widget._model.removeListener(modelDidChange);
     super.dispose();
+  }
+
+  void modelDidChange() {
+    setState(() {});
   }
 
   @override
