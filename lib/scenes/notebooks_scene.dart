@@ -36,7 +36,7 @@ class _NotebooksListViewState extends State<NotebooksListView> {
     widget._model.add(Notebook("New Notebook"));
   }
 
-  void onTapNotebook(Notebook notebook) async {
+  Future<void> onTapNotebook(Notebook notebook) async {
     await Navigator.pushNamed(context, NotesListView.routeName,
         arguments: notebook);
 

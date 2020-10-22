@@ -34,7 +34,7 @@ class _NotesListViewState extends State<NotesListView> {
     setState(() {});
   }
 
-  void onTapNote(Note note) async {
+  Future<void> onTapNote(Note note) async {
     await Navigator.pushNamed(context, NoteDetailView.routeName,
         arguments: note);
 
@@ -83,7 +83,7 @@ class NoteSliver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateFormat fmt = DateFormat("yyyy-mm-dd");
+    final DateFormat fmt = DateFormat("yyyy-mm-dd");
 
     return Dismissible(
       key: UniqueKey(),
